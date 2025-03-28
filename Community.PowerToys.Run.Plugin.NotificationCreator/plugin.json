@@ -1,0 +1,14 @@
+{
+  "ID": "EC1E39A26B6449E99DA8FB5061A9F447",
+  "ActionKeyword": "notificationcreator",
+  "IsGlobal": false,
+  "Name": "NotificationCreator",
+  "Author": "hlaueriksson",
+  "Version": "0.87.0",
+  "Language": "csharp",
+  "Website": "https://github.com/hlaueriksson/Community.PowerToys.Run.Plugin.NotificationCreator",
+  "ExecuteFileName": "Community.PowerToys.Run.Plugin.NotificationCreator.dll",
+  "IcoPathDark": "Images\\notificationcreator.dark.png",
+  "IcoPathLight": "Images\\notificationcreator.light.png",
+  "DynamicLoading": false
+}
