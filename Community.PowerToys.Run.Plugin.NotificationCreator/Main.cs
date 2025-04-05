@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using Wox.Plugin;
+using Wox.Plugin.Logger;
 
 namespace Community.PowerToys.Run.Plugin.NotificationCreator
 {
@@ -41,6 +42,7 @@ namespace Community.PowerToys.Run.Plugin.NotificationCreator
         public List<Result> Query(Query query)
         {
             var search = query.Search;
+            Log.Info($"Query: {search}", GetType());
 
             return
             [
@@ -48,12 +50,12 @@ namespace Community.PowerToys.Run.Plugin.NotificationCreator
                 {
                     QueryTextDisplay = search,
                     IcoPath = IconPath,
-                    Title = "Title: " + search,
-                    SubTitle = "SubTitle",
-                    ToolTipData = new ToolTipData("Title", "Text"),
+                    Title = "Notification: " + search,
+                    SubTitle = $"Sends notification saying \"{search}\"",
+                    ToolTipData = new ToolTipData("Notification", "Text"),
                     Action = _ =>
                     {
-                        Clipboard.SetDataObject(search);
+                        Context.API.ShowNotification(search);
                         return true;
                     },
                     ContextData = search,
@@ -86,7 +88,7 @@ namespace Community.PowerToys.Run.Plugin.NotificationCreator
                     new ContextMenuResult
                     {
                         PluginName = Name,
-                        Title = "Copy to clipboard (Ctrl+C)",
+                        Title = "Create Notification",
                         FontFamily = "Segoe MDL2 Assets",
                         Glyph = "\xE8C8", // Copy
                         AcceleratorKey = Key.C,
@@ -129,7 +131,7 @@ namespace Community.PowerToys.Run.Plugin.NotificationCreator
             Disposed = true;
         }
 
-        private void UpdateIconPath(Theme theme) => IconPath = theme == Theme.Light || theme == Theme.HighContrastWhite
+        private void UpdateIconPath(Theme theme) => IconPath = theme is Theme.Light or Theme.HighContrastWhite
             ? "Images/notificationcreator.light.png"
             : "Images/notificationcreator.dark.png";
 
